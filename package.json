@@ -25,5 +25,9 @@
   "dependencies": {
     "concurrently": "^7.5.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "engines": {
+    "node": "17.x"
+  },
+  "heroku-prebuild": "npm install --dev"
 }
