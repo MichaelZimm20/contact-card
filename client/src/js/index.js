@@ -18,7 +18,7 @@ import { Tooltip, Toast, Popover } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import initDb function 
-import { initdb, getDb, postDb } from './database';
+import { initdb, getDb, postDb, deleteDb } from './database';
 
 // import fetchcards function from cards.js
 import { fetchCards } from './cards';
@@ -35,6 +35,7 @@ window.addEventListener('load', function () {
   document.getElementById('bearThumbnail').src = Bear;
   document.getElementById('dogThumbnail').src = Dog;
 });
+
 
   // Form functionality
   const form = document.getElementById("formToggle");
@@ -71,6 +72,18 @@ window.addEventListener('load', function () {
   // Reload the DOM
   fetchCards();
   });
+
+
+// delete card by id 
+window.deleteCard = (e) => {
+  // Grabs the id from the button element attached to the contact card.
+  let id = parseInt(e.id);
+  // Delete the card 
+  deleteDb(id);
+  // Reload the DOM
+  fetchCards();
+}
+
 
 
 function component() {

@@ -20,8 +20,4 @@ export const clearForm = () => {
   document.getElementById("phone").value = "";
   document.getElementById("email").value = "";
 }
-// const newContactButton = document.getElementById("new-contact");
 
-// newContactButton.addEventListener('click', event => {
-//  toggleForm()
-// })
