@@ -14,7 +14,8 @@
     "bootstrap": "^5.2.2",
     "idb": "^7.1.1",
     "lodash": "^4.17.21",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "regenerator-runtime": "^0.13.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
