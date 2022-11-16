@@ -8,7 +8,7 @@ import '../css/index.css';
 // import images 
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
-import Logo from '../images/buzz-city.png';
+import Logo from '../images/logo.png';
 
 
 // import bootstrap npm modules 
