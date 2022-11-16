@@ -1,9 +1,10 @@
 const path = require('path');
 
-// import html webpack and Workbox plugin 
+// import html webpack and injectManifest, WebpackManifest plugin 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {InjectManifest} = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 
 
@@ -25,7 +26,29 @@ module.exports = {
       swSrc: './src/sw.js',
       swDest: 'service-worker.js'
 
-    })
+    }),
+    new WebpackPwaManifest({
+      name: 'Contact Cards Application',
+      short_name: 'Contact Cards',
+      description: 'Keep track of contacts!',
+      background_color: '#7eb4e2',
+      theme_color: '#7eb4e2',
+      start_url: './',
+      publicPath: './',
+      icons: [
+        {
+          src: path.resolve('src/images/icon-manifest.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+          destination: path.join('assets', 'icons'),
+        },
+        {
+          src: path.resolve('src/images/icon-manifest.png'),
+          size: '1024x1024',
+          destination: path.join('assets', 'icons'),
+          purpose: 'maskable'
+        }
+      ],
+    }),
   ],
   module: {
     rules: [
