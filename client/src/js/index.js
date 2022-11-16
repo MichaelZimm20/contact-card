@@ -8,7 +8,7 @@ import '../css/index.css';
 // import images 
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
-import Logo from '../images/buzz-city.png';
+import Logo from '../images/logo.png';
 
 
 // import bootstrap npm modules 
@@ -116,3 +116,23 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
   navigator.serviceWorker.register('./service-worker.js');
 })};
+
+
+// install button 
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  installBtn.style.visibility = 'visible';
+
+    // disable install button if app already installed
+  installBtn.addEventListener('click', () => {
+    event.prompt();
+    installBtn.setAttribute('disabled', true);
+    installBtn.textContent = 'Installed!';
+    });
+  });
+
+  window.addEventListener('appinstalled', (event) => {
+    console.log('👍', 'appinstalled', event);
+  });
