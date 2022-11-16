@@ -4,37 +4,37 @@ import _ from 'lodash';
 // import css styles 
 import '../css/index.css';
 
-// impoer modules 
-import  "./form";
-// import "./submit";
 
 // import images 
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
-import buzzCity from '../images/buzz-city.png';
+import Logo from '../images/buzz-city.png';
 
 // import bootstrap npm modules 
 import { Tooltip, Toast, Popover } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+//=================================IMPORT FUNCTIONS==================================//
 // import initDb function 
-import { initdb, getDb, postDb } from './database';
+import { initdb, postDb, deleteDb, editDb } from './database';
 
 // import fetchcards function from cards.js
-import { fetchCards } from './cards';
+import {fetchCards} from './cards';
 
 // import form functions from form.js
 import { toggleForm, clearForm } from './form';
-
+//=================================IMPORT FUNCTIONS==================================//
 
 // add images on load
 window.addEventListener('load', function () {
   initdb();
   fetchCards();
-  document.getElementById('logo').src = buzzCity;
+  document.getElementById('logo').src = Logo;
   document.getElementById('bearThumbnail').src = Bear;
   document.getElementById('dogThumbnail').src = Dog;
 });
+
 
   // Form functionality
   const form = document.getElementById("formToggle");
@@ -58,7 +58,14 @@ window.addEventListener('load', function () {
   if (submitBtnToUpdate == false) {
     postDb(name, email, phone, profile);
   } else {
-  
+    // Obtains values passed into the form element
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
+    let profile = document.querySelector('input[type="radio"]:checked').value;
+    // Calls the editDB function passing in any values from the form element as well as the ID of the contact that we are updating
+    editDb(profileId, name, email, phone, profile);
+
     fetchCards();
       // Toggles the submit button back to POST functionality
     submitBtnToUpdate = false;
@@ -73,16 +80,31 @@ window.addEventListener('load', function () {
   });
 
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
+// delete card by id 
+window.deleteCard = (e) => {
+  // Grabs the id from the button element attached to the contact card.
+  let id = parseInt(e.id);
+  // Delete the card 
+  deleteDb(id);
+  // Reload the DOM
+  fetchCards();
+}
 
-    return element;
-  }
-  
-  document.body.appendChild(component());
 
-  
+window.editCard = (e) => {
+  // Grabs the id from the button element attached to the contact card and sets a global variable that will be used in the form element.
+  profileId = parseInt(e.dataset.id);
+  // Grabs information to pre-populate edit form
+  let editName = e.dataset.name;
+  let editEmail = e.dataset.email;
+  let editPhone = e.dataset.phone;
+
+  document.getElementById("name").value = editName;
+  document.getElementById("email").value = editEmail;
+  document.getElementById("phone").value = editPhone;
+
+  form.style.display = 'block';
+
+  // Toggles the submit button so that it now Updates an existing contact instead of posting a new one
+  submitBtnToUpdate = true;
+}
