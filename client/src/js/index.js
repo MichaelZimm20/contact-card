@@ -10,6 +10,7 @@ import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
 import Logo from '../images/buzz-city.png';
 
+
 // import bootstrap npm modules 
 import { Tooltip, Toast, Popover } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -108,3 +109,10 @@ window.editCard = (e) => {
   // Toggles the submit button so that it now Updates an existing contact instead of posting a new one
   submitBtnToUpdate = true;
 }
+
+// registration code for service worker 
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  window.addEventListener('load', () => {
+  navigator.serviceWorker.register('./service-worker.js');
+})};
